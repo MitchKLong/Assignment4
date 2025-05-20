@@ -8,7 +8,7 @@ public class PersonTest {
     @Test
     public void addPersonValidTest(){
         Person person = new Person();
-        boolean result = person.addPerson("23%%%%%%EE", "1|Street|City|Victoria|australia", "29-2-2000");
+        boolean result = person.addPerson("23%%%%%%EE", "John", "Smith" ,"1|Street|City|Victoria|australia", "29-2-2000");
 
         assertTrue(result);
     }
@@ -17,7 +17,7 @@ public class PersonTest {
     @Test
     public void addPersonInvalidIDTest(){
         Person person = new Person();
-        boolean result = person.addPerson("11%%%%%%EE", "1|Street|City|Victoria|australia", "29-2-2000");
+        boolean result = person.addPerson("11%%%%%%EE", "John", "Smith", "1|Street|City|Victoria|australia", "29-2-2000");
 
         assertFalse(result);
     }
@@ -26,7 +26,7 @@ public class PersonTest {
     @Test
     public void addPersonInvalidAddressTest(){
         Person person = new Person();
-        boolean result = person.addPerson("23%%%%%%EE", "1|Street|City|New South Wales|australia", "29-2-2000");
+        boolean result = person.addPerson("23%%%%%%EE", "John", "Smith", "1|Street|City|New South Wales|australia", "29-2-2000");
 
         assertFalse(result);
     }
@@ -35,7 +35,7 @@ public class PersonTest {
     @Test
     public void addPersonInvalidBirthdateTest(){
         Person person = new Person();
-        boolean result = person.addPerson("23%%%%%%EE", "1|Street|City|Victoria|australia", "0-2-2000");
+        boolean result = person.addPerson("23%%%%%%EE", "John", "Smith", "1|Street|City|Victoria|australia", "0-2-2000");
 
         assertFalse(result);
     }

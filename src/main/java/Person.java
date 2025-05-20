@@ -11,7 +11,7 @@ public class Person {
     private HashMap<Date, Integer> demeritPoints;
     private boolean isSuspended;
 
-    public boolean addPerson(String personID, String personAddress, String personBirthdate){
+    public boolean addPerson(String personID, String personFirstName, String personLastName, String personAddress, String personBirthdate){
 
         //TODO: This method adds information about a person to a TXT file.
 
@@ -32,6 +32,8 @@ public class Person {
         //the information should be inserted into a TXT file, and the addPerson function should return true.
         //Otherwise, the information should not be inserted into the TXT file, and the addPerson function should return false.
 
+        FileIO fileIO = new FileIO();
+
         if (personID.length() != 10){
             System.out.println("Id too short");
             return false;
@@ -50,6 +52,11 @@ public class Person {
 
         if (!verifyBirthdate(personBirthdate)){
             System.out.println("Birthdate not verified");
+            return false;
+        }
+
+        if (!fileIO.writeToFile(personID, personFirstName, personLastName, personAddress, personBirthdate, "output.txt")){
+            System.out.println("Unable to write to file");
             return false;
         }
 
