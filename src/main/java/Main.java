@@ -19,47 +19,58 @@ public class Main{
         System.out.println(" 3.  Add Demerit Points To A User.");
         System.out.println("-1.  Exit.");
 
-        int choice;
+        String usrInput;
+        int choice = 0;
+        int printedError = 0;
         
-        //TODO: ADD EXCEPTION HANDLING
-
         //Basic Menu System
         do {
             System.out.println("Please select an option.");
-            choice = input.nextInt();
-    
-            switch (choice){
-                case 1:
-                    //TODO: PROMPT USER FOR VALS
-                    System.out.println();
-                    System.out.println("Registering A User...");
-                    String firstName = "John";
-                    String lastName = "Smith";
-                    String id = "23%%%%%%EE";
-                    String address = "1|Street|City|Victoria|australia";
-                    String birthDate = "29-2-2000";
-                    if (person.addPerson(id, firstName, lastName, address, birthDate)){
-                            fileIO.readFromFile("output.txt");
-                    }
-                    break;
-                case 2:
-                    System.out.println();
-                    System.out.println("Updating User Details...");
-                    //TODO: IMPLEMENT FUNCTION
-                    break;
-                case 3:
-                    System.out.println();
-                    System.out.println("Add Demerit Points...");
-                    //TODO: IMPLEMENT FUNCTION
-                    break;
-                case -1:
-                    System.out.println();
-                    System.out.println("Exiting...");
-                    break;
-                default:
-                    System.out.println();
-                    System.out.println("Invalid Input.");
-                    break;
+            usrInput = input.next();
+            try { // Tries to convert the input to a intiger. If it can't, it prints the error message and tries the input again.
+                choice = Integer.parseInt(usrInput);
+            } catch (Exception NumberFormatException) {
+                System.out.println("Please only enter 1, 2, 3 or -1");
+                printedError = 1; // Stops the error message from being printed twice.
+            }
+            if (choice > 0 && choice < 4 || choice == -1){
+                switch (choice){
+                    case 1:
+                        //TODO: PROMPT USER FOR VALS
+                        System.out.println();
+                        System.out.println("Registering A User...");
+                        String firstName = "John";
+                        String lastName = "Smith";
+                        String id = "23%%%%%%EE";
+                        String address = "1|Street|City|Victoria|australia";
+                        String birthDate = "29-2-2000";
+                        if (person.addPerson(id, firstName, lastName, address, birthDate)){
+                                fileIO.readFromFile("output.txt");
+                        }
+                        break;
+                    case 2:
+                        System.out.println();
+                        System.out.println("Updating User Details...");
+                        //TODO: IMPLEMENT FUNCTION
+                        break;
+                    case 3:
+                        System.out.println();
+                        System.out.println("Add Demerit Points...");
+                        //TODO: IMPLEMENT FUNCTION
+                        break;
+                    case -1:
+                        System.out.println();
+                        System.out.println("Exiting...");
+                        break;
+                    default:
+                        System.out.println();
+                        System.out.println("Invalid Input.");
+                        break;
+                }
+            } else if (printedError == 0){ // Stops the error message from being printed twice.
+                System.out.println("Please only enter 1, 2, 3 or -1");
+            } else {
+                printedError = 0;
             }
 
             if (choice != -1){
