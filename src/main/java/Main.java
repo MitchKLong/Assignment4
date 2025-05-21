@@ -71,5 +71,6 @@ public class Main{
             }
             
         } while (choice != -1);
+        input.close();
     }
 }
