@@ -27,7 +27,7 @@ public class Person {
         //TODO: COMPLETE
         //Condition 3: The format of the birth date of the person should follow the following format: DD-MM-YYYY, Example: 15-11-1990
 
-        //TODO: INCOMPLETE
+        //TODO: COMPLETE
         //Instruction: If the Person's information meets the above conditions and any other conditions you may want to consider,
         //the information should be inserted into a TXT file, and the addPerson function should return true.
         //Otherwise, the information should not be inserted into the TXT file, and the addPerson function should return false.
