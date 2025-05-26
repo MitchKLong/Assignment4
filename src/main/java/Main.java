@@ -51,7 +51,14 @@ public class Main{
                     case 2:
                         System.out.println();
                         System.out.println("Updating User Details...");
-                        //TODO: IMPLEMENT FUNCTION
+                        String newFirstName = "Jane";
+                        String newLastName = "Johnson";
+                        String newID = "37%%%%%%EF";
+                        String newAddress = "123|Hank Street|Melbourne|Victoria|Australia";
+                        String newBirthday = "26-8-2007";
+                        if (person.updatePersonalDetails(newID, newFirstName, newLastName, newAddress, newBirthday)){
+                            fileIO.writeToFile(newID, newFirstName, newLastName, newAddress, newBirthday, "output.txt");
+                        }
                         break;
                     case 3:
                         System.out.println();

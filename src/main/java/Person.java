@@ -1,5 +1,10 @@
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class Person {
 
@@ -59,6 +64,12 @@ public class Person {
             System.out.println("Unable to write to file");
             return false;
         }
+        this.personID = personID;
+        this.firstName = personFirstName;
+        this.lastName = personLastName;
+        this.address = personAddress;
+        this.birthdate = personBirthdate;
+
 
         return true;
     }
@@ -228,5 +239,44 @@ public class Person {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
+    public boolean updatePersonalDetails(String newID, String newFirstName, String newLastName, String newAddress, String newBirthday){
+        DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd-M-yyyy"); 
 
+        
+        if (newID.length() != 10){
+            System.out.println("Id too short");
+            return false;
+        }
+        System.out.println(newID.length());
+
+        if (!verifyAddress(newAddress)){
+            System.out.println("Address not verified");
+            return false;
+        }
+
+        if (!verifyBirthdate(newBirthday)){
+            System.out.println("Birthdate not verified");
+            return false;
+        }
+
+        LocalDate currentDate = LocalDate.now();
+        LocalDate birthDate = LocalDate.parse(birthdate, DTF);
+
+        Date currDate = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date birth = Date.from(birthDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        long diffInMillies = Math.abs(currDate.getTime() - birth.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        long diffYears = diff / 365;
+
+        System.out.println(diffYears);
+
+        int checker = personID.charAt(0);
+        checker = checker / 2;
+        String strCheck = Integer.toString(checker);
+        if(strCheck.endsWith("5")){
+            return false;
+        }
+        return true;
+    }
 }
