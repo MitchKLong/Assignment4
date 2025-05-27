@@ -62,15 +62,11 @@ public class Main{
                         String newID = input.nextLine();;
                         System.out.println("What is the new Address?");
                         String newAddress = input.nextLine();;
-                        System.out.println("Are you changing your birthday? [Yes = 1, No = 0]");
-                        System.out.println("WARNING: You can't change any other value if you change your birthday!");
-                        String ChangeBirth = input.nextLine();;
-                        String newBirthday = "26-8-2007";
-                        if (ChangeBirth.equals("1")){
-                            System.out.println("What is the new Birthday?");
-                            newBirthday = input.nextLine();;
+                        System.out.println("What is the new Birthday?");
+                        String newBirthday = input.nextLine();;
+                        if (person.updatePersonalDetails(newID, newFirstName, newLastName, newAddress, newBirthday, CheckID, filename)){
+                            fileIO.writeToFile(newID, newFirstName, newLastName, newAddress, newBirthday, filename, CheckID);
                         }
-                        person.updatePersonalDetails(newID, newFirstName, newLastName, newAddress, newBirthday, CheckID, ChangeBirth, filename);
                         break;
                     case 3:
                         System.out.println();

@@ -232,7 +232,7 @@ public class Person {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
-    public boolean updatePersonalDetails(String newID, String newFirstName, String newLastName, String newAddress, String newBirthday, String CheckID, String ChangeBirth, String filename){
+    public boolean updatePersonalDetails(String newID, String newFirstName, String newLastName, String newAddress, String newBirthday, String CheckID, String filename){
         String ID = "none";
         String firstName = "none";
         String lastName = "none";
@@ -277,15 +277,11 @@ public class Person {
             }
         }
 
-        if (ChangeBirth.equals("1")){
-            newID = ID;
-            newFirstName = firstName;
-            newLastName = lastName;
-            newAddress = address;
+        if (!newID.equals(ID) || !newFirstName.equals(filename) || !newLastName.equals(lastName) || !newAddress.equals(address)){
             System.out.println("Other infomation can not be changed if changing birthday.");
-        } else{
-            newBirthday = birthdate;
+            return false;
         }
+
         LocalDate currentDate = LocalDate.now();
         LocalDate birthDate = LocalDate.parse(birthdate, DTF);
 
@@ -296,21 +292,18 @@ public class Person {
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         long diffYears = diff / 365;
 
-        if (diffYears < 18){
+        if (diffYears < 18 && !newAddress.equals(address)){
             System.out.println("Address can not be changed if user is under 18.");
-            newAddress = address;
+            return false;
         }
-
-        System.out.println(diffYears);
 
         String checker = ID.replaceAll("(\\d+).+", "$1");
         int checkint = Integer.parseInt(checker.toString());
-        if ((checkint % 2) == 0){
-            newID = ID;
+        if ((checkint % 2) == 0 && !newID.equals(ID)){
             System.out.println("ID begins with an even number, cannot change ID.");
+            return false;
         }
-
-        fileIO.writeToFile(newID, newFirstName, newLastName, newAddress, newBirthday, filename, CheckID);
+        
         return true;
     }
 }
