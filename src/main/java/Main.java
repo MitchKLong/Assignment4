@@ -13,7 +13,6 @@ public class Main{
 
         System.out.println("Welcome to the Road Registry System Victoria.");
         
-
         System.out.println(" 1.  Register A User.");
         System.out.println(" 2.  Update A User's Details.");
         System.out.println(" 3.  Add Demerit Points To A User.");
@@ -22,6 +21,7 @@ public class Main{
         String usrInput;
         int choice = 0;
         int printedError = 0;
+        String filename = "output.txt";
         
         //Basic Menu System
         do {
@@ -45,20 +45,32 @@ public class Main{
                         String address = "1|Street|City|Victoria|australia";
                         String birthDate = "29-2-2000";
                         if (person.addPerson(id, firstName, lastName, address, birthDate)){
-                                fileIO.readFromFile("output.txt");
+                                fileIO.readFromFile(filename);
                         }
                         break;
                     case 2:
                         System.out.println();
                         System.out.println("Updating User Details...");
-                        String newFirstName = "Jane";
-                        String newLastName = "Johnson";
-                        String newID = "37%%%%%%EF";
-                        String newAddress = "123|Hank Street|Melbourne|Victoria|Australia";
+                        System.out.println("What is the Existing ID?");
+                        input.nextLine();
+                        String CheckID = input.nextLine();
+                        System.out.println("What is the New First Name?");
+                        String newFirstName = input.nextLine();;
+                        System.out.println("What is the new Last Name?");
+                        String newLastName = input.nextLine();;
+                        System.out.println("What is the new ID?");
+                        String newID = input.nextLine();;
+                        System.out.println("What is the new Address?");
+                        String newAddress = input.nextLine();;
+                        System.out.println("Are you changing your birthday? [Yes = 1, No = 0]");
+                        System.out.println("WARNING: You can't change any other value if you change your birthday!");
+                        String ChangeBirth = input.nextLine();;
                         String newBirthday = "26-8-2007";
-                        if (person.updatePersonalDetails(newID, newFirstName, newLastName, newAddress, newBirthday)){
-                            fileIO.writeToFile(newID, newFirstName, newLastName, newAddress, newBirthday, "output.txt");
+                        if (ChangeBirth.equals("1")){
+                            System.out.println("What is the new Birthday?");
+                            newBirthday = input.nextLine();;
                         }
+                        person.updatePersonalDetails(newID, newFirstName, newLastName, newAddress, newBirthday, CheckID, ChangeBirth, filename);
                         break;
                     case 3:
                         System.out.println();

@@ -2,6 +2,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.zip.DataFormatException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -60,17 +61,10 @@ public class Person {
             return false;
         }
 
-        if (!fileIO.writeToFile(personID, personFirstName, personLastName, personAddress, personBirthdate, "output.txt")){
+        if (!fileIO.writeToFile(personID, personFirstName, personLastName, personAddress, personBirthdate, "output.txt", null)){
             System.out.println("Unable to write to file");
             return false;
         }
-        this.personID = personID;
-        this.firstName = personFirstName;
-        this.lastName = personLastName;
-        this.address = personAddress;
-        this.birthdate = personBirthdate;
-
-
         return true;
     }
 
@@ -231,7 +225,6 @@ public class Person {
             System.out.println("Birthdate input must match: DD-MM-YYYY, Example: 15-11-1990");
             return false;
         }
-
         return true;
     }
 
@@ -239,8 +232,16 @@ public class Person {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
-    public boolean updatePersonalDetails(String newID, String newFirstName, String newLastName, String newAddress, String newBirthday){
-        DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd-M-yyyy"); 
+    public boolean updatePersonalDetails(String newID, String newFirstName, String newLastName, String newAddress, String newBirthday, String CheckID, String ChangeBirth, String filename){
+        String ID = "none";
+        String firstName = "none";
+        String lastName = "none";
+        String address = "none";
+        String birthdate = "none";
+
+        FileIO fileIO = new FileIO();
+        String[] inputStr = fileIO.readFromFile(filename);
+        DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd-M-yyyy");
 
         
         if (newID.length() != 10){
@@ -258,7 +259,33 @@ public class Person {
             System.out.println("Birthdate not verified");
             return false;
         }
+        for(int i = 0; i < inputStr.length - 1; ++i){
+            try{
+                String[] file = inputStr[i].split(" ");
+                if (CheckID.equals(file[0])){
+                    ID = file[0];
+                    firstName = file[1];
+                    lastName = file[2];
+                    address = file[3];
+                    birthdate = file[4];
+                    break;
+                }
+            }
+            catch (NullPointerException e){
+                System.out.println("Search ID does not exist in file");
+                return false;
+            }
+        }
 
+        if (ChangeBirth.equals("1")){
+            newID = ID;
+            newFirstName = firstName;
+            newLastName = lastName;
+            newAddress = address;
+            System.out.println("Other infomation can not be changed if changing birthday.");
+        } else{
+            newBirthday = birthdate;
+        }
         LocalDate currentDate = LocalDate.now();
         LocalDate birthDate = LocalDate.parse(birthdate, DTF);
 
@@ -269,14 +296,21 @@ public class Person {
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         long diffYears = diff / 365;
 
+        if (diffYears < 18){
+            System.out.println("Address can not be changed if user is under 18.");
+            newAddress = address;
+        }
+
         System.out.println(diffYears);
 
-        int checker = personID.charAt(0);
-        checker = checker / 2;
-        String strCheck = Integer.toString(checker);
-        if(strCheck.endsWith("5")){
-            return false;
+        String checker = ID.replaceAll("(\\d+).+", "$1");
+        int checkint = Integer.parseInt(checker.toString());
+        if ((checkint % 2) == 0){
+            newID = ID;
+            System.out.println("ID begins with an even number, cannot change ID.");
         }
+
+        fileIO.writeToFile(newID, newFirstName, newLastName, newAddress, newBirthday, filename, CheckID);
         return true;
     }
 }
