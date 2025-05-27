@@ -277,7 +277,7 @@ public class Person {
             }
         }
 
-        if (!newID.equals(ID) || !newFirstName.equals(filename) || !newLastName.equals(lastName) || !newAddress.equals(address)){
+        if (!newID.equals(ID) || !newFirstName.equals(firstName) || !newLastName.equals(lastName) || !newAddress.equals(address)){
             System.out.println("Other infomation can not be changed if changing birthday.");
             return false;
         }
@@ -303,7 +303,7 @@ public class Person {
             System.out.println("ID begins with an even number, cannot change ID.");
             return false;
         }
-        
+
         return true;
     }
 }
