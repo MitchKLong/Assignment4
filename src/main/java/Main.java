@@ -1,6 +1,11 @@
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main{
 
@@ -29,6 +34,7 @@ public class Main{
             usrInput = input.next();
             try { // Tries to convert the input to a intiger. If it can't, it prints the error message and tries the input again.
                 choice = Integer.parseInt(usrInput);
+                input.nextLine(); // Consume the newline character
             } catch (Exception NumberFormatException) {
                 System.out.println("Please only enter 1, 2, 3 or -1");
                 printedError = 1; // Stops the error message from being printed twice.
@@ -72,6 +78,14 @@ public class Main{
                         System.out.println();
                         System.out.println("Add Demerit Points...");
                         //TODO: IMPLEMENT FUNCTION
+                        System.out.print("Enter Person ID: ");
+                        String personID = input.nextLine();
+                        System.out.print("Enter Demerit Points (1-6): ");
+                        int demeritPoints = Integer.parseInt(input.nextLine());
+                        System.out.print("Enter Offense Date (DD-MM-YYYY): ");
+                        String offenseDate = input.nextLine();
+                        String result = person.addDemeritPoints(personID, demeritPoints, offenseDate);
+                        System.out.println("Result: " + result);
                         break;
                     case -1:
                         System.out.println();
