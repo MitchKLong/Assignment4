@@ -1,11 +1,31 @@
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class PersonTest {
     
+    @AfterEach
+    public void cleanup() {
+        try {
+            // Reset output.txt with just the header
+            FileWriter outputWriter = new FileWriter("output.txt");
+            outputWriter.write("personID firstName lastName address birthdate\n");
+            outputWriter.close();
+
+            // Reset demerit_points.txt with just the header
+            FileWriter demeritWriter = new FileWriter("demerit_points.txt");
+            demeritWriter.write("personID|offenseDate|points\n");
+            demeritWriter.close();
+        } catch (IOException e) {
+            fail("Failed to reset files: " + e.getMessage());
+        }
+    }
+
     //Valid ID, ADDRESS, BIRTHDATE
     @Test
     public void addPersonValidTest(){
