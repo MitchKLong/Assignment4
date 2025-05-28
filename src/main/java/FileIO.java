@@ -71,16 +71,20 @@ public class FileIO {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
             while ((line = reader.readLine()) != null){
+                if (line.trim().isEmpty()) continue;
                 System.out.println(line);
-                inputStr[i] = line;
+                inputStr[i++] = line;
             }
             reader.close();
+            
+            // Create a new array with only the actual lines read
+            String[] result = new String[i];
+            System.arraycopy(inputStr, 0, result, 0, i);
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Unable to read file");
             return notTrue;
         }
-        System.out.println("Successfully read file");
-        return inputStr;
     }
 }   
