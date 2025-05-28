@@ -265,9 +265,9 @@ public class Person {
             System.out.println("Birthdate not verified");
             return false;
         }
-        for(int i = 0; i < inputStr.length - 1; ++i){
+        for(int i = 0; i < inputStr.length; ++i){
             try{
-                String[] file = inputStr[i].split(" ");
+                String[] file = inputStr[i].split("  ");
                 if (CheckID.equals(file[0])){
                     ID = file[0];
                     firstName = file[1];
@@ -282,10 +282,11 @@ public class Person {
                 return false;
             }
         }
-
-        if (!newID.equals(ID) || !newFirstName.equals(firstName) || !newLastName.equals(lastName) || !newAddress.equals(address)){
-            System.out.println("Other infomation can not be changed if changing birthday.");
-            return false;
+        if (!newBirthday.equals(birthdate)){
+            if (!newID.equals(ID) || !newFirstName.equals(firstName) || !newLastName.equals(lastName) || !newAddress.equals(address)){
+                System.out.println("Other infomation can not be changed if changing birthday.");
+                return false;
+            }
         }
 
         LocalDate currentDate = LocalDate.now();
@@ -359,7 +360,7 @@ public class Person {
             if (mainParts.length != 2) continue;
             
             // Split the remaining part by spaces
-            String[] remainingParts = mainParts[1].trim().split(" ");
+            String[] remainingParts = mainParts[1].trim().split("  ");
             if (remainingParts.length < 3) continue;  // Need at least firstName, lastName, and birthdate
             
             // Get the birthdate (last part)

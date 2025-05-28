@@ -24,7 +24,7 @@ public class FileIO {
                     inputBuffer.append('\n');
                 }
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-                inputBuffer.append(ID + " " + firstName + " " + lastName + " " + address + " " + birthDate);
+                inputBuffer.append(ID + "  " + firstName + "  " + lastName + "  " + address + "  " + birthDate);
                 String inputStr = inputBuffer.toString();
                 writer.write(inputStr);
                 writer.close();
@@ -49,7 +49,7 @@ public class FileIO {
                 }
                 reader.close();
                 String inputStr = inputBuffer.toString();
-                inputStr = inputStr.replace(replaceLine, ID + " " + firstName + " " + lastName + " " + address + " " + birthDate);
+                inputStr = inputStr.replace(replaceLine, ID + "  " + firstName + "  " + lastName + "  " + address + "  " + birthDate);
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
                 writer.write(inputStr);
                 writer.close();

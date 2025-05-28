@@ -58,7 +58,6 @@ public class Main{
                         System.out.println();
                         System.out.println("Updating User Details...");
                         System.out.println("What is the Existing ID?");
-                        input.nextLine();
                         String CheckID = input.nextLine();
                         System.out.println("What is the New First Name?");
                         String newFirstName = input.nextLine();;
