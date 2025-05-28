@@ -448,7 +448,7 @@ public class Person {
         // Append new demerit point to demerit_points.txt
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("demerit_points.txt", true));
-            writer.write("\n" + personID + "|" + offenseDate + "|" + demeritPoints);
+            writer.write(personID + "|" + offenseDate + "|" + demeritPoints);
             writer.close();
             System.out.println("Successfully wrote to demerit points file");
         } catch (IOException e) {
