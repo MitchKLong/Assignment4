@@ -388,9 +388,10 @@ public class Person {
             return "Failed";
         }
 
-        // Calculate age at offense
-        int age = offense.getYear() - birthDate.getYear();
-        if (offense.getDayOfYear() < birthDate.getDayOfYear()) {
+        // Calculate age at current time
+        LocalDate currentDate = LocalDate.now();
+        int age = currentDate.getYear() - birthDate.getYear();
+        if (currentDate.getDayOfYear() < birthDate.getDayOfYear()) {
             age--;
         }
         System.out.println("Calculated age: " + age);
@@ -415,6 +416,7 @@ public class Person {
                         if (!d.isAfter(offense)) {
                             if (!d.isBefore(offense.minusYears(2))) {
                                 totalPointsIn2Years += pts;
+                                System.out.println("Adding points: " + pts + " from date: " + d);
                             }
                         }
                     } catch (Exception e) {
@@ -438,18 +440,22 @@ public class Person {
         // Add current demerit points to total
         totalPointsIn2Years += demeritPoints;
         System.out.println("Total points in 2 years: " + totalPointsIn2Years);
+        System.out.println("Age: " + age + ", Points: " + totalPointsIn2Years);
 
         // Apply suspension rules based on age
         if (age < 21 && totalPointsIn2Years > 6) {
+            System.out.println("Setting suspension for under 21 with points > 6");
             this.isSuspended = true;
         } else if (age >= 21 && totalPointsIn2Years > 12) {
+            System.out.println("Setting suspension for over 21 with points > 12");
             this.isSuspended = true;
         }
+        System.out.println("Final suspension status: " + this.isSuspended);
 
         // Append new demerit point to demerit_points.txt
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("demerit_points.txt", true));
-            writer.write(personID + "|" + offenseDate + "|" + demeritPoints);
+            writer.write("\n" + personID + "|" + offenseDate + "|" + demeritPoints);
             writer.close();
             System.out.println("Successfully wrote to demerit points file");
         } catch (IOException e) {
@@ -458,6 +464,10 @@ public class Person {
         }
 
         return "Success";
+    }
+
+    public boolean isSuspended() {
+        return isSuspended;
     }
 
 }
