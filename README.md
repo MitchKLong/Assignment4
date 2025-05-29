@@ -1,7 +1,7 @@
-# Assignment4
+# Assignment 4
 
 # Project Name: 
-Road Registry System
+RoadRegistry System
 # Project Version: 
 0.1.0
 
@@ -35,6 +35,7 @@ Group 98:
             -Herculez
     Jessica Mae Galang (s4096230)
         GitHub Username(s):
+            -kosandra8
             -Oracle-08
     Nguyen Phan Cong (s4059598)
         GitHub Username(s):
