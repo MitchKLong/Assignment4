@@ -1,203 +1,217 @@
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class PersonTest {
     
 
-    //Valid ID, ADDRESS, BIRTHDATE
-    @Test
-    public void addPersonValidTest(){
-        Person person = new Person();
-        boolean result = person.addPerson("23%%%%%%EE", "John", "Smith" ,"1|Street|City|Victoria|australia", "29-2-2000");
+ // Test 1: personID too short (less than 10 characters) - should fail
+@Test
+public void addPersonInvalidPersonIDLength() {
+    Person person = new Person();
+    boolean result = person.addPerson("56%&fAB",  // 7 chars only
+                                      "Kim",
+                                      "Philipps",
+                                      "32|Naomi Street|Melbourne|Victoria|Australia",
+                                      "15-05-1995");
+    assertFalse(result, "Should reject personID with invalid length");
+}
 
-        assertTrue(result);
+// Test 2: personID first two chars not digits between 2-9 - should fail
+@Test
+public void addPersonInvalidPersonIDStartDigits() {
+    Person person = new Person();
+    boolean result = person.addPerson("1%&sdfABCD",  // first char is 1 (invalid)
+                                      "Jane",
+                                      "Marie",
+                                      "32|Naomi Street|Melbourne|Victoria|Australia",
+                                      "15-05-1995");
+    assertFalse(result, "Should reject personID starting with digit outside 2-9");
+}
+
+// Test 3: personID missing 2+ special characters between positions 3 and 8 - should fail
+@Test
+public void addPersonInvalidPersonIDSpecialChars() {
+    Person person = new Person();
+    boolean result = person.addPerson("56abcdefAB",  // no special chars in positions 3-8
+                                      "James",
+                                      "Smith",
+                                      "32|Naomi Street|Melbourne|Victoria|Australia",
+                                      "15-05-1995");
+    assertFalse(result, "Should reject personID without at least 2 special chars in positions 3-8");
+}
+
+// Test 4: personID last two characters not uppercase letters - should fail
+@Test
+public void addPersonInvalidPersonIDEndChars() {
+    Person person = new Person();
+    boolean result = person.addPerson("56%&sdfab12",  // last two chars digits not uppercase letters
+                                      "Emily",
+                                      "Johnson",
+                                      "32|Naomi Street|Melbourne|Victoria|Australia",
+                                      "15-05-1995");
+    assertFalse(result, "Should reject personID whose last two characters are not uppercase letters");
+}
+
+// Test 5: birthdate in wrong format (e.g. YYYY-MM-DD) - should fail
+@Test
+public void addPersonInvalidBirthdateFormat() {
+    Person person = new Person();
+    boolean result = person.addPerson("56%&sdABCD",
+                                      "Clarke",
+                                      "Rueda",
+                                      "32|Naomi Street|Melbourne|Victoria|Australia",
+                                      "1995-05-15");  // wrong format
+    assertFalse(result, "Should reject birthdate in wrong format");
+}
+
+// Test 1: address changed when person is under 18 - should fail
+@Test
+public void updatePersonalDetailsAddressChangeUnder18() {
+    Person person = new Person();
+    // Assume person under 18 with this ID
+    boolean result = person.updatePersonalDetails(
+            "32%&sdABCD",  // ID with first digit 3 (odd)
+            "Alice",
+            "Santos",
+            "10|New St|Melbourne|Victoria|Australia",  // address changed
+            "01-01-2010",  // birthdate showing age < 18
+            "32%&sdABCD",
+            "output.txt");
+    assertFalse(result, "Should reject address change if person is under 18");
+}
+
+// Test 2: changing ID when first digit of current ID is even - should fail
+@Test
+public void updatePersonalDetailsChangeIDFirstDigitEven() {
+    Person person = new Person();
+    boolean result = person.updatePersonalDetails(
+            "42%&sdABCD",  // current ID with even first digit '4'
+            "Ashley",
+            "Ramirez",
+            "32|Riviera Drive|Melbourne|Victoria|Australia",
+            "15-05-1990",
+            "52%&sdABCD",  // new ID different
+            "output.txt");
+    assertFalse(result, "Should reject changing ID if first digit of current ID is even");
+}
+
+// Test 3: changing only birthday (allowed)
+@Test
+public void updatePersonalDetailsChangeOnlyBirthday() {
+    Person person = new Person();
+    boolean result = person.updatePersonalDetails(
+            "31%&sdABCD",
+            "Heath",
+            "Moreland",
+            "32|Riviera Drive|Melbourne|Victoria|Australia",
+            "16-05-1990",  // birthday changed only
+            "31%&sdABCD",
+            "output.txt");
+    assertTrue(result, "Should allow changing only birthday");
+}
+
+// Test 4: address changed when person is over 18 - should succeed
+@Test
+public void updatePersonalDetailsAddressChangeOver18() {
+    Person person = new Person();
+    boolean result = person.updatePersonalDetails(
+            "42%&sdABCD",  // current ID with first digit 4 (even)
+            "Brady",
+            "Davidson",
+            "10|Riviera Drive|Melbourne|Victoria|Australia",  // changed address
+            "01-01-1990",  // age > 18
+            "42%&sdABCD",  // same ID
+            "output.txt");
+    assertTrue(result, "Should allow address change if person is over 18");
+}
+
+// Test 5: changing ID when first digit of current ID is odd - should succeed
+@Test
+public void updatePersonalDetailsChangeIDFirstDigitOdd() {
+    Person person = new Person();
+    boolean result = person.updatePersonalDetails(
+            "31%&sdABCD",  // first digit 3 (odd)
+            "Jamie",
+            "Hanson",
+            "32|Riviera Drive|Melbourne|Victoria|Australia",
+            "15-05-1990",
+            "51%&sdABCD",  // new ID allowed
+            "output.txt");
+    assertTrue(result, "Should allow changing ID if first digit of current ID is odd");
+}
+
+// Test 1: date of offense in wrong format - should fail
+@Test
+public void addDemeritPointsInvalidDateFormat() {
+    Person person = new Person();
+    String personID = "56%&sdABCD";
+    person.addPerson(personID,
+                     "Mark",
+                     "Quintanilla",
+                     "10|Main Rd|Melbourne|Victoria|Australia",
+                     "01-01-1990");
+    String result = person.addDemeritPoints(personID, 3, "2024-01-01"); // wrong format
+    assertEquals("Failed", result, "Should reject offense date in wrong format");
+}
+
+// Test 2: demerit points above 6 - should fail
+@Test
+public void addDemeritPointsAboveRange() {
+    Person person = new Person();
+    String personID = "58%&sdABCD";
+    person.addPerson(personID,
+                     "Alanah",
+                     "Papin",
+                     "10|Main Rd|Melbourne|Victoria|Australia",
+                     "01-01-1990");
+    String result = person.addDemeritPoints(personID, 7, "01-01-2024");  // points > 6
+    assertEquals("Failed", result, "Should reject demerit points above 6");
+}
+
+// Test 3: person under 21 becomes suspended after exceeding 6 points in 2 years
+@Test
+public void addDemeritPointsSuspensionUnder21() {
+    Person person = new Person();
+    String personID = "59%&sdABCD";
+    person.addPerson(personID,
+                     "Sophie",
+                     "Brown",
+                     "10|Main Rd|Melbourne|Victoria|Australia",
+                     "01-01-2005"); // under 21 now (age 19 approx)
+    person.addDemeritPoints(personID, 4, "01-01-2023");
+    person.addDemeritPoints(personID, 3, "01-12-2023"); // total 7 > 6
+    assertTrue(person.isSuspended(), "Person under 21 should be suspended after exceeding 6 points in 2 years");
+}
+
+// Test 4: person over 21 becomes suspended after exceeding 12 points in 2 years
+@Test
+public void addDemeritPointsSuspensionOver21() {
+    Person person = new Person();
+    String personID = "61%&sdABCD";
+    person.addPerson(personID,
+                     "James",
+                     "White",
+                     "10|Main Rd|Melbourne|Victoria|Australia",
+                     "01-01-1990"); // over 21 now
+    person.addDemeritPoints(personID, 6, "01-01-2023");
+    person.addDemeritPoints(personID, 7, "01-12-2023"); // total 13 > 12
+    assertTrue(person.isSuspended(), "Person over 21 should be suspended after exceeding 12 points in 2 years");    
     }
 
-    //Invalid ID, VALID ADDRESS, VALID BIRTHDATE
-    @Test
-    public void addPersonInvalidIDTest(){
-        Person person = new Person();
-        boolean result = person.addPerson("11%%%%%%EE", "John", "Smith", "1|Street|City|Victoria|australia", "29-2-2000");
+// Test 5: adding 0 demerit points - should fail
+@Test
+public void addDemeritPointsZeroPoints() {
+    Person person = new Person();
+    String personID = "62%&sdABCD";
+    person.addPerson(personID,
+                     "Sarah",
+                     "Claire",
+                     "10 Main Road|Melbourne|Victoria|Australia",
+                     "01-01-1990");
+    String result = person.addDemeritPoints(personID, 0, "01-01-2024");  // points = 0 invalid
+    assertEquals("Failed", result, "Should reject adding zero demerit points");
+}
 
-        assertFalse(result);
-    }
-
-    //Valid ID, INVAlID ADDRESS, BIRTHDATE
-    @Test
-    public void addPersonInvalidAddressTest(){
-        Person person = new Person();
-        boolean result = person.addPerson("23%%%%%%EE", "John", "Smith", "1|Street|City|New South Wales|australia", "29-2-2000");
-
-        assertFalse(result);
-    }
-
-    //Valid ID, ADDRESS, INVALID BIRTHDATE
-    @Test
-    public void addPersonInvalidBirthdateTest(){
-        Person person = new Person();
-        boolean result = person.addPerson("23%%%%%%EE", "John", "Smith", "1|Street|City|Victoria|australia", "0-2-2000");
-
-        assertFalse(result);
-    }
-
-    /**
-     * Test case for adding demerit points to a person
-     * Tests the following scenarios:
-     * 1. Valid demerit points addition
-     * 2. Invalid demerit points (points > 6)
-     * 3. Invalid date format
-     * 4. Non-existent person
-     */
-    @Test
-    public void testAddDemeritPoints() {
-        Person person = new Person();
-        
-        // Setup: Add a test person first with a unique ID
-        String personID = "37%%%%%%EB"; // Make ID unique
-        String firstName = "Jane";
-        String lastName = "Johnson";
-        String address = "123|Hank Street|Melbourne|Victoria|Australia";
-        String birthdate = "29-2-2000";
-        
-        // Test 1: Add person successfully
-        boolean addPersonResult = person.addPerson(personID, firstName, lastName, address, birthdate);
-        assertTrue(addPersonResult, "Failed to add test person");
-        
-        // Test 2: Add valid demerit points
-        String result = person.addDemeritPoints(personID, 6, "11-11-2022");
-        assertEquals("Success", result, "Failed to add valid demerit points");
-        
-        // Test 3: Add invalid demerit points (points > 6)
-        result = person.addDemeritPoints(personID, 7, "11-11-2022");
-        assertEquals("Failed", result, "Should fail for points > 6");
-        
-        // Test 4: Add demerit points with invalid date format
-        result = person.addDemeritPoints(personID, 6, "11/11/2022");
-        assertEquals("Failed", result, "Should fail for invalid date format");
-        
-        // Test 5: Add demerit points for non-existent person
-        result = person.addDemeritPoints("99%%%%%%XX", 6, "11-11-2022");
-        assertEquals("Failed", result, "Should fail for non-existent person");
-        
-        // Verify demerit points file format
-        try {
-            java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader("demerit_points.txt"));
-            String header = reader.readLine();
-            reader.readLine(); // Skip the empty line after header
-            String demeritEntry = reader.readLine();
-            reader.close();
-            
-            // Verify header format
-            assertEquals("personID|offenseDate|points", header.trim(), "Header format is incorrect");
-            
-            // Verify demerit entry format
-            String expectedEntry = personID + "|11-11-2022|6";
-            assertEquals(expectedEntry, demeritEntry.trim(), "Demerit entry format is incorrect");
-            
-        } catch (java.io.IOException e) {
-            fail("Failed to read demerit points file: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Test case 1: Valid date format and demerit points
-     * Tests Condition 1 and 2: Valid date format (DD-MM-YYYY) and valid demerit points (1-6)
-     */
-    @Test
-    public void testAddDemeritPointsValidInput() {
-        Person person = new Person();
-        String personID = "37%%%%%%EB";
-        String firstName = "Jane";
-        String lastName = "Johnson";
-        String address = "123|Hank Street|Melbourne|Victoria|Australia";
-        String birthdate = "29-2-2000";
-        
-        person.addPerson(personID, firstName, lastName, address, birthdate);
-        String result = person.addDemeritPoints(personID, 6, "11-11-2022");
-        assertEquals("Success", result, "Should accept valid date format and demerit points");
-    }
-
-    /**
-     * Test case 2: Invalid date format
-     * Tests Condition 1: Invalid date format (should be DD-MM-YYYY)
-     */
-    @Test
-    public void testAddDemeritPointsInvalidDateFormat() {
-        Person person = new Person();
-        String personID = "37%%%%%%EB";
-        String result = person.addDemeritPoints(personID, 6, "11/11/2022");
-        assertEquals("Failed", result, "Should reject invalid date format");
-    }
-
-    /**
-     * Test case 3: Invalid demerit points
-     * Tests Condition 2: Demerit points must be between 1-6
-     */
-    @Test
-    public void testAddDemeritPointsInvalidPoints() {
-        Person person = new Person();
-        String personID = "37%%%%%%EB";
-        String result = person.addDemeritPoints(personID, 7, "11-11-2022");
-        assertEquals("Failed", result, "Should reject demerit points > 6");
-    }
-
-    /**
-     * Test case 4: Suspension for person under 21
-     * Tests Condition 3: Person under 21 with total points > 6 in 2 years
-     */
-    @Test
-    public void testAddDemeritPointsSuspensionUnder21() {
-        Person person = new Person();
-        String personID = "37%%%%%%EB";
-        String firstName = "Jane";
-        String lastName = "Johnson";
-        String address = "123|Hank Street|Melbourne|Victoria|Australia";
-        String birthdate = "29-2-2000"; // Person is under 21
-        
-        person.addPerson(personID, firstName, lastName, address, birthdate);
-        
-        // Add first demerit point
-        String result1 = person.addDemeritPoints(personID, 4, "11-11-2022");
-        assertEquals("Success", result1, "Should add first demerit point");
-        
-        // Add second demerit point that exceeds limit
-        String result2 = person.addDemeritPoints(personID, 3, "12-11-2022");
-        assertEquals("Success", result2, "Should add second demerit point");
-        
-        assertTrue(person.isSuspended(), "Person under 21 should be suspended when total points > 6");
-    }
-
-    /**
-     * Test case 5: Suspension for person over 21
-     * Tests Condition 3: Person over 21 with total points > 12 in 2 years
-     */
-    @Test
-    public void testAddDemeritPointsSuspensionOver21() {
-        Person person = new Person();
-        String personID = "37%%%%%%EB";
-        String firstName = "Jane";
-        String lastName = "Johnson";
-        String address = "123|Hank Street|Melbourne|Victoria|Australia";
-        String birthdate = "29-2-1980"; // Person is over 21
-        
-        person.addPerson(personID, firstName, lastName, address, birthdate);
-        
-        // Add multiple demerit points to exceed 12 points
-        String result1 = person.addDemeritPoints(personID, 6, "11-11-2022");
-        assertEquals("Success", result1, "Should add first set of demerit points");
-        
-        String result2 = person.addDemeritPoints(personID, 6, "12-11-2022");
-        assertEquals("Success", result2, "Should add second set of demerit points");
-        
-        String result3 = person.addDemeritPoints(personID, 1, "13-11-2022");
-        assertEquals("Success", result3, "Should add third set of demerit points");
-        
-        assertTrue(person.isSuspended(), "Person over 21 should be suspended when total points > 12");
-    }
 }
