@@ -1,8 +1,6 @@
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-import java.util.zip.DataFormatException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.lang.StringBuffer;
 
 public class Person {
 
