@@ -458,11 +458,13 @@ public class Person {
 
         // Apply suspension rules based on age
         if (age < 21 && totalPointsIn2Years > 6) {
-            System.out.println("Setting suspension for under 21 with points > 6");
-            this.isSuspended = true;
-        } else if (age >= 21 && totalPointsIn2Years > 12) {
-            System.out.println("Setting suspension for over 21 with points > 12");
-            this.isSuspended = true;
+        System.out.println("Setting suspension for under 21 with points > 6");
+        this.isSuspended = true;
+        globalSuspended = true;
+            } else if (age >= 21 && totalPointsIn2Years > 12) {
+        System.out.println("Setting suspension for over 21 with points > 12");
+        this.isSuspended = true;
+        globalSuspended = true;
         }
         System.out.println("Final suspension status: " + this.isSuspended);
 
