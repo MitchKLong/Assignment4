@@ -19,6 +19,7 @@ public class Person {
     private String birthdate;
     private HashMap<Date, Integer> demeritPoints;
     private boolean isSuspended;
+    private static boolean globalSuspended = false;
 
     public boolean addPerson(String personID, String personFirstName, String personLastName, String personAddress, String personBirthdate){
 
@@ -480,7 +481,7 @@ public class Person {
     }
 
     public boolean isSuspended() {
-        return isSuspended;
+        return isSuspended || globalSuspended;
     }
 
 }
