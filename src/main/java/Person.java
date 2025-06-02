@@ -257,6 +257,11 @@ public class Person {
             System.out.println("Address not verified");
             return false;
         }
+        
+        if (!newID.equals(ID) && !verifyID(newID)) {
+        System.out.println("New ID format is invalid");
+        return false;   
+        }
 
         if (!verifyBirthdate(newBirthday)){
             System.out.println("Birthdate not verified");
@@ -279,12 +284,12 @@ public class Person {
                 return false;
             }
         }
-        if (!newBirthday.equals(birthdate)){
-            if (!newID.equals(ID) || !newFirstName.equals(firstName) || !newLastName.equals(lastName) || !newAddress.equals(address)){
-                System.out.println("Other infomation can not be changed if changing birthday.");
-                return false;
-            }
+    if (!newBirthday.equals(birthdate)){
+        if (!newID.equals(ID) || !newFirstName.equals(firstName) || !newLastName.equals(lastName) || !newAddress.equals(address)){
+        System.out.println("Other information cannot be changed if changing birthday.");
+        return false;
         }
+    }
 
         LocalDate currentDate = LocalDate.now();
         LocalDate birthDate = LocalDate.parse(birthdate, DTF);
