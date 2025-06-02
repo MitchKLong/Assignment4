@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonTest {
-    
-
- // Test 1: personID too short (less than 10 characters) - should fail
+     // Test 1: personID too short (less than 10 characters) - should fail
 @Test
 public void addPersonInvalidPersonIDLength() {
     Person person = new Person();
@@ -54,7 +52,7 @@ public void addPersonInvalidPersonIDEndChars() {
     assertFalse(result, "Should reject personID whose last two characters are not uppercase letters");
 }
 
-// Test 5: birthdate in wrong format (e.g. YYYY-MM-DD) - should fail
+// Test 5: birthdate in wrong format (YYYY-MM-DD) - should fail
 @Test
 public void addPersonInvalidBirthdateFormat() {
     Person person = new Person();
@@ -97,7 +95,7 @@ public void updatePersonalDetailsChangeIDFirstDigitEven() {
     assertFalse(result, "Should reject changing ID if first digit of current ID is even");
 }
 
-// Test 3: changing only birthday (allowed)
+// Test 3: changing only birthday (allowed) - should succeed
 @Test
 public void updatePersonalDetailsChangeOnlyBirthday() {
     Person person = new Person();
