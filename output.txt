@@ -1,8 +1,1 @@
 37%%%%%%EB  Jane  Johnson  123|Hank Street|Melbourne|Victoria|Australia  29-2-2000
-42%&sdABCD  Ashley  Ramirez  32|Riviera Drive|Melbourne|Victoria|Australia  15-05-1990
-59%&sdABCD  Sophie  Brown  10|Main Rd|Melbourne|Victoria|Australia  01-01-2005
-33%&sdABCD  Heath  Moreland  32|Riviera Drive|Melbourne|Victoria|Australia  12-05-1990
-58%&sdABCD  Alanah  Papin  10|Main Rd|Melbourne|Victoria|Australia  01-01-1990
-56%&sdABCD  Mark  Quintanilla  10|Main Rd|Melbourne|Victoria|Australia  01-01-1990
-32%&sdABCD  Brady  Davidson  9|Riviera Drive|Melbourne|Victoria|Australia  01-01-1990
-73%&sdABCD  Jamie  Hanson  90|Riviera Drive|Melbourne|Victoria|Australia  15-05-1990
