@@ -127,14 +127,14 @@ public void updatePersonalDetailsChangeOnlyBirthday() {
 @Test
 public void updatePersonalDetailsAddressChangeOver18() {
     Person person = new Person();
-    person.addPerson("42%&sdABCD", 
+    person.addPerson("32%&sdABCD", 
                      "Brady", 
                      "Davidson", 
                      "9|Riviera Drive|Melbourne|Victoria|Australia", 
                      "01-01-1990"
                      );
     boolean result = person.updatePersonalDetails(
-            "42%&sdABCD",  // current ID with first digit 4 (even)
+            "32%&sdABCD",  // current ID with first digit 4 (even)
             "Brady",
             "Davidson",
             "10|Riviera Drive|Melbourne|Victoria|Australia",  // changed address
