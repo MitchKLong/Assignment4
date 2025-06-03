@@ -112,6 +112,12 @@ public void updatePersonalDetailsChangeIDFirstDigitEven() {
 @Test
 public void updatePersonalDetailsChangeOnlyBirthday() {
     Person person = new Person();
+    person.addPerson("31%&sdABCD", 
+                     "Heath", 
+                     "Moreland", 
+                     "32|Riviera Drive|Melbourne|Victoria|Australia", 
+                     "12-05-1990"
+                     );
     boolean result = person.updatePersonalDetails(
             "31%&sdABCD",
             "Heath",
