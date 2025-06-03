@@ -73,7 +73,7 @@ public void updatePersonalDetailsAddressChangeUnder18() {
         "32%&sdABCD",
         "Alice",
         "Santos",
-        "10|New St|Melbourne|Victoria|Australia",
+        "17|New St|Melbourne|Victoria|Australia",
         "01-01-2010"
     );
     boolean result = person.updatePersonalDetails(
