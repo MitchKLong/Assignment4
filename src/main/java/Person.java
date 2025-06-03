@@ -309,7 +309,9 @@ public class Person {
         }
 
         String checker = ID.substring(0, 1);
-        checker = checker.substring(0, checker.length() - 1);
+        if (!(checker.length() == 1)){
+            checker = checker.substring(0, checker.length() - 1);
+        }
         int checkint = Integer.parseInt(checker);
         if ((checkint % 2) == 0 && !newID.equals(ID)){
             System.out.println("ID begins with an even number, cannot change ID.");
