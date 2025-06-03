@@ -155,12 +155,12 @@ public void updatePersonalDetailsChangeIDFirstDigitOdd() {
                      "15-05-1990"
                      );
     boolean result = person.updatePersonalDetails(
-            "31%&sdABCD",  // first digit 3 (odd)
+            "51%&sdABCD",  // first digit 5 (odd)
             "Jamie",
             "Hanson",
             "32|Riviera Drive|Melbourne|Victoria|Australia",
             "15-05-1990",
-            "51%&sdABCD",  // new ID allowed
+            "31%&sdABCD",  // new ID allowed
             "output.txt");
     assertTrue(result, "Should allow changing ID if first digit of current ID is odd");
 }
