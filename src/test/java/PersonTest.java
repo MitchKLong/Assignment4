@@ -166,7 +166,7 @@ public void updatePersonalDetailsChangeIDFirstDigitOdd() {
             "Hanson",
             "90|Riviera Drive|Melbourne|Victoria|Australia",
             "15-05-1990",
-            "51%&sdABCD",  // new ID allowed
+            "81%&sdABCD",  // new ID allowed
             "output.txt");
     assertTrue(result, "Should allow changing ID if first digit of current ID is odd");
 }
