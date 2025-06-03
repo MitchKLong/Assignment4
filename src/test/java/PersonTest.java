@@ -154,19 +154,19 @@ public void updatePersonalDetailsAddressChangeOver18() {
 @Test
 public void updatePersonalDetailsChangeIDFirstDigitOdd() {
     Person person = new Person();
-    person.addPerson("31%&sdABCD", 
+    person.addPerson("71%&sdABCD", 
                      "Jamie", 
                      "Hanson", 
                      "32|Riviera Drive|Melbourne|Victoria|Australia", 
                      "15-05-1990"
                      );
     boolean result = person.updatePersonalDetails(
-            "51%&sdABCD",  // first digit 5 (odd)
+            "91%&sdABCD",  // first digit 9 (odd)
             "Jamie",
             "Hanson",
             "32|Riviera Drive|Melbourne|Victoria|Australia",
             "15-05-1990",
-            "31%&sdABCD",  // new ID allowed
+            "71%&sdABCD",  // new ID allowed
             "output.txt");
     assertTrue(result, "Should allow changing ID if first digit of current ID is odd");
 }
