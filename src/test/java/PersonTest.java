@@ -161,7 +161,7 @@ public void updatePersonalDetailsChangeIDFirstDigitOdd() {
                      "15-05-1990"
                      );
     boolean result = person.updatePersonalDetails(
-            "81%&sdABCD",  // first digit 7 (odd)
+            "83%&sdABCD",  // first digit 7 (odd)
             "Jamie",
             "Hanson",
             "90|Riviera Drive|Melbourne|Victoria|Australia",
