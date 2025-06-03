@@ -91,6 +91,12 @@ public void updatePersonalDetailsAddressChangeUnder18() {
 @Test
 public void updatePersonalDetailsChangeIDFirstDigitEven() {
     Person person = new Person();
+    person.addPerson("42%&sdABCD", 
+                     "Ashley", 
+                     "Ramirez", 
+                     "32|Riviera Drive|Melbourne|Victoria|Australia", 
+                     "15-05-1990"
+                     );
     boolean result = person.updatePersonalDetails(
             "42%&sdABCD",  // current ID with even first digit '4'
             "Ashley",
