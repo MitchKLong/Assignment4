@@ -139,7 +139,7 @@ public void updatePersonalDetailsAddressChangeOver18() {
             "Davidson",
             "10|Riviera Drive|Melbourne|Victoria|Australia",  // changed address
             "01-01-1990",  // age > 18
-            "42%&sdABCD",  // same ID
+            "32%&sdABCD",  // same ID
             "output.txt");
     assertTrue(result, "Should allow address change if person is over 18");
 }
