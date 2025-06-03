@@ -69,6 +69,13 @@ public void addPersonInvalidBirthdateFormat() {
 public void updatePersonalDetailsAddressChangeUnder18() {
     Person person = new Person();
     // Assume person under 18 with this ID
+    person.addPerson(
+        "32%&sdABCD",
+        "Alice",
+        "Santos",
+        "10|New St|Melbourne|Victoria|Australia",
+        "01-01-2010"
+    );
     boolean result = person.updatePersonalDetails(
             "32%&sdABCD",  // ID with first digit 3 (odd)
             "Alice",
