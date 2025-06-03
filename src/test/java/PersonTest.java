@@ -112,19 +112,19 @@ public void updatePersonalDetailsChangeIDFirstDigitEven() {
 @Test
 public void updatePersonalDetailsChangeOnlyBirthday() {
     Person person = new Person();
-    person.addPerson("31%&sdABCD", 
+    person.addPerson("33%&sdABCD", 
                      "Heath", 
                      "Moreland", 
                      "32|Riviera Drive|Melbourne|Victoria|Australia", 
                      "12-05-1990"
                      );
     boolean result = person.updatePersonalDetails(
-            "31%&sdABCD",
+            "33%&sdABCD",
             "Heath",
             "Moreland",
             "32|Riviera Drive|Melbourne|Victoria|Australia",
             "16-05-1990",  // birthday changed only
-            "31%&sdABCD",
+            "33%&sdABCD",
             "output.txt");
     assertTrue(result, "Should allow changing only birthday");
 }
@@ -161,12 +161,12 @@ public void updatePersonalDetailsChangeIDFirstDigitOdd() {
                      "15-05-1990"
                      );
     boolean result = person.updatePersonalDetails(
-            "73%&sdABCD",  // first digit 7 (odd)
+            "81%&sdABCD",  // first digit 7 (odd)
             "Jamie",
             "Hanson",
             "90|Riviera Drive|Melbourne|Victoria|Australia",
             "15-05-1990",
-            "81%&sdABCD",  // new ID allowed
+            "73%&sdABCD",  // new ID allowed
             "output.txt");
     assertTrue(result, "Should allow changing ID if first digit of current ID is odd");
 }
