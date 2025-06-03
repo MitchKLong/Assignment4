@@ -285,22 +285,12 @@ public class Person {
                 return false;
             }
         }
-    // FIX birthday-only function
-    boolean onlyBirthdayChanged = !newBirthday.equals(birthdate) && 
-                              newID.equals(ID) && 
-                              newFirstName.equals(firstName) && 
-                              newLastName.equals(lastName) && 
-                              newAddress.equals(address);
-
-    // If only birthday is changed, allow it and return true
-    if (onlyBirthdayChanged) {
-    return true;
-    }
-
-    // If birthday is changed along with other fields, reject
-    if (!newBirthday.equals(birthdate)) {
-    System.out.println("Cannot change birthday along with other information.");
-    return false;
+        // FIX birthday-only function
+        if (!newBirthday.equals(birthdate)){
+            if (!newID.equals(ID) || !newFirstName.equals(firstName) || !newLastName.equals(lastName) || !newAddress.equals(address)){
+                System.out.println("Other information cannot be changed if changing birthday.");
+                return false;
+        }
     }
 
         LocalDate currentDate = LocalDate.now();
