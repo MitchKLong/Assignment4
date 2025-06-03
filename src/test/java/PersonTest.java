@@ -154,14 +154,14 @@ public void updatePersonalDetailsAddressChangeOver18() {
 @Test
 public void updatePersonalDetailsChangeIDFirstDigitOdd() {
     Person person = new Person();
-    person.addPerson("72%&sdABCD", 
+    person.addPerson("73%&sdABCD", 
                      "Jamie", 
                      "Hanson", 
                      "90|Riviera Drive|Melbourne|Victoria|Australia", 
                      "15-05-1990"
                      );
     boolean result = person.updatePersonalDetails(
-            "72%&sdABCD",  // first digit 7 (odd)
+            "73%&sdABCD",  // first digit 7 (odd)
             "Jamie",
             "Hanson",
             "90|Riviera Drive|Melbourne|Victoria|Australia",
