@@ -23,21 +23,15 @@ public class Person {
 
     public boolean addPerson(String personID, String personFirstName, String personLastName, String personAddress, String personBirthdate){
 
-        //TODO: This method adds information about a person to a TXT file.
-
-        //TODO: COMPLETE
         //Conditions 1: PersonID should be exactly 10 characters long.
         //the first two characters should be numbers between 2 and 9, there should be at least two special characters between characters 3 and 8,
         // and the last two characters should be upper case letters (A-Z) example: "56s_d%fAB"
 
-        //TODO: COMPLETE
         //Condition 2: The address of the Person should follow the following format: Street Number|Street|City|State|Country,
         //The state should only be Victoria. Example: 32|Highland Street|Melbourne|Victoria|Australia
 
-        //TODO: COMPLETE
         //Condition 3: The format of the birth date of the person should follow the following format: DD-MM-YYYY, Example: 15-11-1990
 
-        //TODO: COMPLETE
         //Instruction: If the Person's information meets the above conditions and any other conditions you may want to consider,
         //the information should be inserted into a TXT file, and the addPerson function should return true.
         //Otherwise, the information should not be inserted into the TXT file, and the addPerson function should return false.
@@ -245,10 +239,10 @@ public class Person {
 
         FileIO fileIO = new FileIO();
         String[] inputStr = fileIO.readFromFile(filename);
-        DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd-M-yyyy");
+        DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd-M-yyyy"); // Sets format for the date for later use
 
         
-        if (newID.length() != 10){
+        if (newID.length() != 10){ // Checks if the inputted values are in the correct format
             System.out.println("Id too short");
             return false;
         }
@@ -268,7 +262,7 @@ public class Person {
             System.out.println("Birthdate not verified");
             return false;
         }
-        for(int i = 0; i < inputStr.length; ++i){
+        for(int i = 0; i < inputStr.length; ++i){ // Checks if the selected person id is within the database file. If not, exit the function.
             try{
                 String[] file = inputStr[i].split("  ");
                 if (CheckID.equals(file[0])){
@@ -285,15 +279,14 @@ public class Person {
                 return false;
             }
         }
-        // FIX birthday-only function
-        if (!newBirthday.equals(birthdate)){
+        if (!newBirthday.equals(birthdate)){ // Checks if the birthday is the only value being changed.
             if (!newID.equals(ID) || !newFirstName.equals(firstName) || !newLastName.equals(lastName) || !newAddress.equals(address)){
                 System.out.println("Other information cannot be changed if changing birthday.");
                 return false;
         }
     }
 
-        LocalDate currentDate = LocalDate.now();
+        LocalDate currentDate = LocalDate.now(); // Gets the current date and time
         LocalDate birthDate = LocalDate.parse(birthdate, DTF);
 
         Date currDate = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -301,19 +294,19 @@ public class Person {
 
         long diffInMillies = Math.abs(currDate.getTime() - birth.getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        long diffYears = diff / 365;
+        long diffYears = diff / 365; // Calculates in years the difference between the current date and the birthdate
 
         if (diffYears < 18 && !newAddress.equals(address)){
             System.out.println("Address can not be changed if user is under 18.");
             return false;
         }
 
-        String checker = ID.substring(0, 1);
-        if (!(checker.length() == 1)){
+        String checker = ID.substring(0, 1); // Gets the first numbers in the id
+        if (!(checker.length() == 1)){ // Covers the occasional case where there is only 1 number retrieved from the id.
             checker = checker.substring(0, checker.length() - 1);
         }
         int checkint = Integer.parseInt(checker);
-        if ((checkint % 2) == 0 && !newID.equals(ID)){
+        if ((checkint % 2) == 0 && !newID.equals(ID)){ // Checks if the number is even or odd
             System.out.println("ID begins with an even number, cannot change ID.");
             return false;
         }

@@ -35,7 +35,6 @@ public class Main{
             if (choice > 0 && choice < 4 || choice == -1){
                 switch (choice){
                     case 1:
-                        //TODO: PROMPT USER FOR VALS
                         System.out.println();
                         System.out.println("Registering A User...");
                         System.out.println("Please enter your First Name");
