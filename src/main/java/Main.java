@@ -38,11 +38,26 @@ public class Main{
                         //TODO: PROMPT USER FOR VALS
                         System.out.println();
                         System.out.println("Registering A User...");
-                        String firstName = "John";
-                        String lastName = "Smith";
-                        String id = "23%%%%%%EE";
-                        String address = "1|Street|City|Victoria|australia";
-                        String birthDate = "29-2-2000";
+                        System.out.println("Please enter your First Name");
+                        String firstName = input.nextLine();
+                        //String firstName = "John";
+                        System.out.println("Please enter your First Name");
+                        String lastName = input.nextLine();
+                        //String lastName = "Smith";
+                        System.out.println("Please enter your ID.");
+                        System.out.println("Must start with two numbers between 2-9, there should be at least two special characters between characters 3 and 8 and the last two characters should be upper case letters");
+                        System.out.println("E.G: 56s_d%fAB");
+                        String id = input.nextLine();
+                        //String id = "23%%%%%%EE";
+                        System.out.println("Please enter your Address");
+                        System.out.println("Must be in format Number|Street|City|State|Country");
+                        System.out.println("State must be Victoria and Country must be Australia");
+                        String address = input.nextLine();
+                        //String address = "1|Street|City|Victoria|australia";
+                        System.out.println("Please enter your BirthDate");
+                        System.out.println("Must be in format DD-MM-YYYY");
+                        String birthDate = input.nextLine();
+                        //String birthDate = "29-2-2000";
                         if (person.addPerson(id, firstName, lastName, address, birthDate)){
                                 fileIO.readFromFile(filename);
                         }
