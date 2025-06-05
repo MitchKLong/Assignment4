@@ -1,42 +1,64 @@
-# Assignment 4
+# 📘 Assignment 4 – RoadRegistry System
 
-# Project Name: 
-RoadRegistry System
-# Project Version: 
-0.1.0
+**Version:** `0.1.0`  
+**Group:** `98`  
+**Project Type:** Prototype – Core Features Implementation
 
-# Project Dependancies:
--Build-
-   Java SDK - Version 21 LTS
-   Maven - Version 21
-   Maven Compiler Plugins - Version 3.14.0
-   Maven Surefire Plugins - Version 3.5.3
+---
 
+## 📌 Project Overview
 
--Testing-
-   JUnit 5 - Version 5.12.2
+The **RoadRegistry System** is a prototype Java-based application designed to assist **Victorian residents** in managing road-use registration. It enables individuals to:
 
+- ✅ **Register themselves** in the system  
+- 🔄 **Update personal details**  
+- ⚠️ **Track demerit points** tied to their driving record
 
-# Project Description: 
- The Road Registry System is an app that allows Victorian residents to register themselves and vehicles attached to them, to be able to drive on Victorian roads. This small snippet of the app covers three prototype functions:
-   - addPerson() : Allows a user to register themselves within the database
-   - updatePersonalDetails() : Allows a user to change their personal details within the database
-   - addDemeritPoints() : A function that stores the demerit points for any given person registered in the database.
+This project represents an early version with a focus on basic functionality.
 
-# Project Contributors:
-Group 98:
+---
 
-    Mitchell Long (s4007880)
-        GitHub Username(s):
-            -MitchKLong
-    Dion Marks (s3721706)
-        GitHub Usernames(s):
-            -Dion-Marks-RMIT
-            -Herculez
-    Jessica Mae Galang (s4096230)
-        GitHub Username(s):
-            -kosandra8
-            -Oracle-08
-    Nguyen Phan Cong (s4059598)
-        GitHub Username(s):
-           -thecuriousivy4
+## ⚙️ Build & Technology Stack
+
+### 🔧 Build Tools
+- **Java SDK:** `21 LTS`  
+- **Maven:** `21`  
+- **Maven Compiler Plugin:** `3.14.0`  
+- **Maven Surefire Plugin:** `3.5.3`  
+
+### 🧪 Testing Framework
+- **JUnit 5:** `5.12.2`  
+
+---
+
+## 🧠 Core Features
+
+### `addPerson()`
+Registers a new user into the system’s database.
+
+### `updatePersonalDetails()`
+Allows the user to modify their stored personal information.
+
+### `addDemeritPoints()`
+Enables storage and tracking of demerit points for registered users.
+
+---
+
+## 👥 Project Contributors
+
+**Mitchell Long** (`s4007880`)  
+- GitHub: [MitchKLong](https://github.com/MitchKLong)
+
+**Dion Marks** (`s3721706`)  
+- GitHub:  
+  - [Dion-Marks-RMIT](https://github.com/Dion-Marks-RMIT)  
+  - [Herculez](https://github.com/Herculez)
+
+**Jessica Mae Galang** (`s4096230`)  
+- GitHub:  
+  - [kosandra8](https://github.com/kosandra8)  
+  - [Oracle-08](https://github.com/Oracle-08)
+
+**Nguyen Phan Cong** (`s4059598`)  
+- GitHub: [thecuriousivy4](https://github.com/thecuriousivy4)
+
